@@ -1,0 +1,7 @@
+{
+    "db": "mongodb://localhost/downfall-production",
+    "url": "http://127.0.0.1",
+    "app": {
+        "name": "downfall-app - Production"
+    }
+}

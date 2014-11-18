@@ -1,0 +1,7 @@
+{
+    "db": "mongodb://localhost/downfall-test",
+    "port": 3001,
+    "app": {
+        "name": "downfall-app - Test"
+    }
+}

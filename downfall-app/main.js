@@ -31,3 +31,6 @@ app.on('ready', function() {
         mainWindow = null;
     });
 });
+
+// Start server
+var server = require('./server');
