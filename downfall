@@ -1,0 +1,4 @@
+#!/bin/bash
+gulp build
+chmod +x bin/atom
+./bin/atom downfall-app
