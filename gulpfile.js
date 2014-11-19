@@ -31,8 +31,8 @@ gulp.task('rimraf', function() {
 });
 
 gulp.task('bower', function() {
-    return bower()
-        .pipe(gulp.dest(dir.assets + '/vendor'));
+    return bower();
+        // .pipe(gulp.dest(dir.assets + '/scripts/vendor'));
 });
 
 gulp.task('bower-styles', function() {
@@ -100,7 +100,9 @@ gulp.task('svg', function() {
 });
 
 gulp.task('html', function() {
-    return gulp.src(dir.assets + '/pages/**/*.{html,htm}')
+    return gulp.src([
+            dir.assets + '/html/**/*.{html,htm}'
+        ])
         .pipe(
             htmlmin({
                 removeCommentsFromCDATA: true,
@@ -111,7 +113,7 @@ gulp.task('html', function() {
                 removeOptionalTags: true
             })
         )
-        .pipe(gulp.dest(dir.dist + '/pages'))
+        .pipe(gulp.dest(dir.dist + '/html'))
 
         .pipe(notify({ message: 'HTML task complete' }));
 });
@@ -138,7 +140,7 @@ gulp.task('watch', ['build'], function() {
     gulp.watch(dir.assets + '/images/**/*.svg', ['svg']);
 
     // Watch html files
-    gulp.watch(dir.assets + '/**/*.{html,htm}', ['html']);
+    gulp.watch(dir.assets + '/html/**/*.{html,htm}', ['html']);
 
 });
 
