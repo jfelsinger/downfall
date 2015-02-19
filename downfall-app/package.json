@@ -24,6 +24,11 @@
     "moment": "^2.9.0",
     "swag": "^0.7.0",
     "hbs": "^2.8.0",
-    "slug": "^0.8.0"
+    "slug": "^0.8.0",
+
+    "pixi.js": "https://github.com/GoodBoyDigital/pixi.js/tarball/master",
+    "polyfill-webcomponents": "^0.20141030.1",
+    "superagent": "^0.21.0",
+    "vue": "^0.11.0"
   }
 }
