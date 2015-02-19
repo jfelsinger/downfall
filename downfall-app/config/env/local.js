@@ -1,5 +1,5 @@
 {
-    "db": "mongodb://localhost/downfall-dev",
+    "db": "mongodb://localhost/downfall-production",
     "url": "http://127.0.0.1",
     "i18n": {
         "locales": ["en"],
@@ -9,6 +9,7 @@
     "staticLocation": "client",
     "assetsLocation": "client",
     "app": {
-        "name": "downfall-app - Dev"
+        "name": "downfall-app - Local"
     }
 }
+

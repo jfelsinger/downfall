@@ -3,6 +3,9 @@ dist/
 node_modules
 bower_components
 
+downfall-app/client/css
+downfall-app/client/js
+
 .tmp
 .sass-cache
 npm-debug.log

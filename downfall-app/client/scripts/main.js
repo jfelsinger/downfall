@@ -8,7 +8,7 @@
 'use strict';
 /* jsline browser: true */
 
-require('polyfill-webcomponents');
-require('../../bower_components/webcomponentsjs/webcomponents.js');
+// require('polyfill-webcomponents');
+// require('../js/vendor/webcomponentsjs/webcomponents.js');
 
 // Code here:

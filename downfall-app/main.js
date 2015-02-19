@@ -1,5 +1,15 @@
+'use strict';
+var debug = require('debug')('downfall:app');
+
+/**
+ * Downfall
+ *
+ * Atom-shell application
+ */
+
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
+var serverStart = require('./server');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -17,20 +27,22 @@ app.on('window-all-closed', function() {
 // This method will be called when atom-shell has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
-    // Create the browser window.
-    mainWindow = new BrowserWindow({width: 800, height: 600});
+    // Start server
+    serverStart(function(server) {
 
-    // and load the index.html of the app.
-    mainWindow.loadUrl('file://' + __dirname + '/../dist/html/index.html');
+        // Create the browser window.
+        mainWindow = new BrowserWindow({width: 800, height: 600});
 
-    // Emitted when the window is closed.
-    mainWindow.on('closed', function() {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        mainWindow = null;
+        // and load the index.html of the app.
+        mainWindow.loadUrl('http://localhost:4004');
+
+        // Emitted when the window is closed.
+        mainWindow.on('closed', function() {
+            // Dereference the window object, usually you would store windows
+            // in an array if your app supports multi windows, this is the time
+            // when you should delete the corresponding element.
+            mainWindow = null;
+        });
+
     });
 });
-
-// Start server
-var server = require('./server');

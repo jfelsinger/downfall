@@ -11,12 +11,24 @@ module.exports = {
 
         return function isLoggedInResult(req, res, next) {
             if (req.isAuthenticates()) {
-                console.log('authenticated');
                 return next();
             }
-
-            console.log('unauthenticated');
             res.redirect(redirectLocation);
         }
-    }
+    },
+
+    /**
+     * returns a middleware function that redirects if the request is
+     * authenticated
+     */
+    isNotLoggedIn: function isNotLoggedIn(redirectLocation) {
+        redirectLocation = redirectLocation || '/';
+
+        return function isNotLoggedInResult(req, res, next) {
+            if (!req.isAuthenticated()) {
+                return next();
+            }
+            res.redirect(redirectLocation);
+        };
+    },
 };

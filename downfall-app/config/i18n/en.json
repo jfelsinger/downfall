@@ -1,0 +1,8 @@
+{
+	"page": {
+		"default": {
+			"title": "page.default.title",
+			"description": "page.default.description"
+		}
+	}
+}
