@@ -1,5 +1,7 @@
 {
     "db": "mongodb://localhost/downfall-production",
+    "staticLocation": "client",
+    "assetsLocation": "dist",
     "url": "http://127.0.0.1",
     "app": {
         "name": "downfall-app - Production"
