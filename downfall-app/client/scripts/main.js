@@ -9,10 +9,13 @@
 /* jslint browser: true */
 /* globals io */
 
-var debug = require('debug')('downfall');
+var _debug = require('debug'),
+    debug = _debug('downfall');
+
+_debug.enable('*');
 
 // Setup globals
-window.debug = debug;
+window._debug = _debug;
 window.vms = {};
 
 // Setup sockets
