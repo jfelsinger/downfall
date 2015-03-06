@@ -1,9 +1,10 @@
+'use strict';
+
 /**
  * Passport
  * Sets up passport authentication management middleware
  */
-var config = require('../config'),
-    mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     authorization = require('./authorization');
 

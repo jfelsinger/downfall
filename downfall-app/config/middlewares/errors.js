@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Errors
  * Handling for error responses
@@ -10,7 +12,7 @@ module.exports = function(app) {
 
         // If page not found continue to the
         // 404 handling middleware
-        if (~err.message.indexOf('not found')) return next();
+        if (err.message.indexOf('not found')) return next();
 
         // log
         console.error(err.stack);
@@ -26,13 +28,13 @@ module.exports = function(app) {
                 .render('500.html', { layout: 'layouts/error' });
 
     });
-    
+
     // Send 404 error
-    app.use(function(req, res, next) {
+    app.use(function(req, res) {
 
         // send response
         if (req.isApi)
-            res.status(404).json({ 
+            res.status(404).json({
                 code: 404,
                 error: 'Not Found'
             });

@@ -1,6 +1,8 @@
 var path = require('path'),
     root = path.normalize(__dirname + '/../..');
 
+GLOBAL.__root = root;
+
 module.exports = {
     root: root,
     port: process.env.PORT || 4004,

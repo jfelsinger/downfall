@@ -1,11 +1,11 @@
+'use strict';
+
 /**
  * Auth
  * Routes that manage auth methods
  */
 
-var async = require('async'),
-    express = require('express'),
-    config = require('../config');
+var express = require('express');
 
 module.exports = function(app, passport) {
     var router = express.Router();

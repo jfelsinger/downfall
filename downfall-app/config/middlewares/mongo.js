@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Mongo
  * Setup mongo store
@@ -10,7 +12,7 @@ var config = require('../config');
 
 module.exports = function(app) {
 
-    // express-session/mongo setup for 
+    // express-session/mongo setup for
     // storing session data
     app.use(session({
         secret: 'DOWNFALL',

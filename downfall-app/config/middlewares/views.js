@@ -3,8 +3,7 @@
  * Setup the view engine
  */
 
-var // debug = require('debug')('downfall:server:middlewares:views'),
-    dv = require('debug')('lftsqt:view');
+var debug = require('debug')('downfall:server:middlewares:views');
 
 var hbs = require('hbs'),
     moment = require('moment'),
@@ -41,7 +40,7 @@ module.exports = function(app) {
 
     hbs.registerHelper('dbg', function() {
         var args = Array.prototype.slice.call(arguments, 0, -1);
-        dv('debug view:\r\n', args);
+        debug('debug view:\r\n', args);
     });
 
     hbs.registerHelper('slug', function(text) {

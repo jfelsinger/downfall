@@ -7,7 +7,7 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
     jshint = require('gulp-jshint'),
-    uglify = require('gulp-uglify'),
+    // uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     svgmin = require('gulp-svgmin'),
     rimraf = require('gulp-rimraf'),
@@ -89,10 +89,10 @@ gulp.task('scripts-client', ['scripts-browserify'], function() {
 gulp.task('images', function() {
     return gulp.src(dir.client + '/images/**/*.{webp,png,jpg,jpeg}')
         .pipe(
-            imagemin({ 
-                optimizationLevel: 3, 
-                progressive: true, 
-                interlaced: true 
+            imagemin({
+                optimizationLevel: 3,
+                progressive: true,
+                interlaced: true
             }))
         .pipe(gulp.dest(dir.dist + '/images/'));
 });

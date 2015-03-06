@@ -1,10 +1,12 @@
+'use strict';
+
 /**
  * API
  * Routes that manage API methods
  */
 
-var express = require('express'),
-    config = require('../config');
+var // config = require('../config'),
+    express = require('express');
 
 module.exports = function(app) {
     var router = express.Router();
@@ -15,6 +17,6 @@ module.exports = function(app) {
         next();
     });
 
-    app.use('/api', 
+    app.use('/api',
         router);
 };

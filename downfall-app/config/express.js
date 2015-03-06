@@ -2,7 +2,7 @@
 
 /**
  * Express Setup
- * 
+ *
  * Setup and configure the express application
  */
 
@@ -26,7 +26,7 @@ module.exports = function(app) {
         app.use(morgan('dev'));
     }
 
-    app.enable("jsonp callback");
+    app.enable('jsonp callback');
 
     app.use(parallel([
         cookieParser(config.secret),
@@ -56,9 +56,9 @@ module.exports = function(app) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    // Continue to routing, 
+    // Continue to routing,
     require('./middlewares/routing')(app, passport);
 
     // Error handling
     require('./middlewares/errors')(app);
-}
+};

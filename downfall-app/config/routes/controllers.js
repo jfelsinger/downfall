@@ -14,10 +14,10 @@ var express = require('express'),
 
 module.exports = function(app) {
     // Set opinionated defaults if the config has none for itself
+    // var auth = require('../auth');
     var defaultController = config.defaultController || 'index';
     var defaultMethod = config.defaultMethod || 'render';
     var router = express.Router();
-    var auth = require('../auth');
     var dataLoaders = [
         require('../middlewares/data/page'),
     ];
@@ -114,6 +114,6 @@ module.exports = function(app) {
 
 
     // Register routes
-    app.use('/', 
+    app.use('/',
         router);
 };
