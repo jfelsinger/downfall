@@ -18,7 +18,7 @@ SocketServer.prototype.start = function(_app, cb) {
     this.io = require('socket.io')(_app);
 
     this.io.on('connection', function(socket) {
-        // debug('new sockets connection: ', socket);
+        debug('new socket connection');
 
         walk(__dirname + '/handlers', function(path) {
             var Handler = require(path),
