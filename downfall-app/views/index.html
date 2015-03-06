@@ -1,1 +1,12 @@
-<h1>TEST</h1>
+<section class="js-vm-app  [ app  app--loading ]"
+    v-class="'app--loading': !isLoaded">
+    <pane-home class="pane"
+         v-if="pane == 'home'"></pane-home>
+    <pane-settings class="pane"
+         v-if="pane == 'settings'"></pane-settings>
+    <pane-servers class="pane"
+         v-if="pane == 'server'"></pane-servers>
+
+    <pane-game class="pane"
+        v-if="pane == 'game'"></pane-game>
+</section>

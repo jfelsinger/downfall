@@ -12,9 +12,6 @@
     <!-- Web Fonts -->
 
     <!-- Styles -->
-    {{#each page.styles }}
-    <link rel="stylesheet" href="/assets/css/{{this}}.css">
-    {{/each}}
     <link rel="stylesheet" href="/assets/css/main.css">
 
 </head>
@@ -25,10 +22,7 @@
     {{{ body }}}
 
     <!-- Scripts -->
-    {{#each page.scripts }}
-    <script src="/assets/js/{{this}}.js"></script>
-    {{/each}}
-    <script src="/assets/js/{{default vm 'main'}}.js"></script>
+    <script src="/assets/js/error.js"></script>
 </body>
 </html>
 

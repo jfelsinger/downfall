@@ -10,7 +10,7 @@ var debug = require('debug')('downfall:server:routes:controllers');
 var express = require('express'),
     fs = require('fs'),
     config = require('../config'),
-    parallel = require(config.root + '/lib/parallel');
+    parallel = require(__root + '/lib/parallel');
 
 module.exports = function(app) {
     // Set opinionated defaults if the config has none for itself
@@ -60,21 +60,25 @@ module.exports = function(app) {
             appPath += '/';
 
         return function(req, res, next) {
-            debug(req.params);
+            debug('req.params', req.params);
             var page = req.params.page || defaultController || '',
                 method = req.params.method || '',
-                controllerPath = config.root + '/app/controllers/' + appPath + page,
+                controllerPath = __root + '/app/controllers/' + appPath + page,
                 controller = null;
 
             if (fs.existsSync(controllerPath + '.js')) {
+                debug('controller exists: ', controllerPath + '.js');
                 controller = require(controllerPath);
             } else {
                 debug('1. Bad request: ' + page);
                 return next();
             }
 
+            debug('page: ', page, method, controllerPath);
+
             // Check for valid controller and method
             if (controller) {
+                debug('controller loaded');
 
                 // Run the given method, if there is one
                 if (method)
@@ -86,7 +90,7 @@ module.exports = function(app) {
                         });
                     } else {
                         debug('2. Bad request: ' + page + '/' + method);
-                        next();
+                        return next();
                     }
 
                 // if not try to run the default instead
@@ -101,13 +105,13 @@ module.exports = function(app) {
                             'Bad request: ' + page +
                             ' doesn\' implement default method `' +
                             defaultMethod + '`');
-                        next(); // there is no  method, :(
+                        return next(); // there is no  method, :(
                     }
                 }
             } else {
                 // it was all a lie
                 debug('3. Bad request: ' + page);
-                next();
+                return next();
             }
         };
     }

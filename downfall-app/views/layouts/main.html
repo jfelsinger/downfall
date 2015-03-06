@@ -26,6 +26,11 @@
 
     {{{ body }}}
 
+    {{> components/panes/home }}
+    {{> components/panes/settings }}
+    {{> components/panes/servers }}
+    {{> components/panes/game }}
+
     <!-- Scripts -->
     {{#each page.scripts }}
     <script src="/assets/js/{{this}}.js"></script>
