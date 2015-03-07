@@ -4,13 +4,13 @@
 
 /**
  * Main.scss
- * 
+ *
  * This is the root style file, where everything
  * else stems from.
  *
  **
  * Contents         - You are here
- * 
+ *
  * Imports          - All the file imports
  *  - utilities
  *  - quarks
@@ -18,10 +18,10 @@
  *  - molecules
  *  - pages
  *  - shame
- * 
- * 
- */ 
- 
+ *
+ *
+ */
+
 
 /*-------------------------------------*\
     Imports
@@ -69,6 +69,7 @@
 
 /*---   Atoms   ---*/
 
+@import 'atoms/page';
 @import 'atoms/type';
 @import 'atoms/buttons';
 @import 'atoms/headings';
@@ -83,10 +84,13 @@
 /*---   Molecules   ---*/
 
 @import 'bower_components/inuit-layout/objects.layout';
+@import 'molecules/pane';
 
 
 
 /*---   Organisms   ---*/
+
+@import 'organisms/app';
 
 
 
