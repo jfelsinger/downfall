@@ -22,7 +22,14 @@
 </head>
     <!--
     -->
-<body>
+<body class="js-vm-app"
+    v-on="
+        keydown: keydown,
+        keyup: keyup,
+        mousedown: mousedown,
+        mouseup: mouseup,
+        mousewheel: mousewheel,
+    ">
 
     {{{ body }}}
 

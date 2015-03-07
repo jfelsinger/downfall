@@ -1,12 +1,17 @@
-<section class="js-vm-app  [ app  app--loading ]"
+<section class=" [ app  app--loading ] "
     v-class="'app--loading': !isLoaded">
     <pane-home class="pane"
-         v-if="pane == 'home'"></pane-home>
+        v-ref="child__home"
+        v-if="pane == 'home'"></pane-home>
     <pane-settings class="pane"
-         v-if="pane == 'settings'"></pane-settings>
+        v-with="settings: settings"
+        v-ref="child__settings"
+        v-if="pane == 'settings'"></pane-settings>
     <pane-servers class="pane"
-         v-if="pane == 'server'"></pane-servers>
+        v-ref="child_servers"
+        v-if="pane == 'servers'"></pane-servers>
 
     <pane-game class="pane"
+        v-ref="child__game"
         v-if="pane == 'game'"></pane-game>
 </section>

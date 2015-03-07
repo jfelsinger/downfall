@@ -48,7 +48,7 @@ gulp.task('bower-styles', function() {
 });
 
 gulp.task('styles-sass', ['bower-styles'], function() {
-    return gulp.src(dir.client + '/js/*.{scss,sass}')
+    return gulp.src(dir.client + '/styles/*.{scss,sass}')
         .pipe(compass({
             style: 'expanded',
             css: dir.client + '/css',
