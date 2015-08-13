@@ -1,5 +1,6 @@
+'use strict';
+
 var mongoose = require('mongoose'),
-    _ = require('underscore'),
     Schema = mongoose.Schema,
     crypto = require('crypto'),
     authTypes = ['github', 'facebook', 'twitter'];
@@ -79,6 +80,6 @@ UserSchema.methods = {
             .update(password)
             .digest('hex');
     }
-}
+};
 
 mongoose.model('User', UserSchema);

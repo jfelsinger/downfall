@@ -4,6 +4,8 @@
  * public void respond([func] cb)
  */
 module.exports = function respond(cb) {
+    'use strict';
+
     return function(err, res) {
         if (err) return console.log(err);
 
@@ -13,5 +15,4 @@ module.exports = function respond(cb) {
             console.log(res);
         }
     };
-}
-
+};

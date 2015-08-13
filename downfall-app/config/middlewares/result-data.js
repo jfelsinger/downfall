@@ -2,6 +2,11 @@
  * Result Data
  * Adds data to be returned by the result
  */
+
+var md5 = require(_root + '/lib/md5'),
+    version = require(_root + '/package.json').version,
+    versionHash = md5(version).slice(0,8);
+
 module.exports = function(req, res, next) {
 
     'use strict';
@@ -19,6 +24,7 @@ module.exports = function(req, res, next) {
 
     // Defaults
     res.data.layout = 'layouts/main';
+    res.data.ver = versionHash;
 
     next();
 };

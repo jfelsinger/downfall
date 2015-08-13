@@ -11,7 +11,6 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     svgmin = require('gulp-svgmin'),
     rimraf = require('gulp-rimraf'),
-    getAtom = require('gulp-download-atom-shell'),
     mocha = require('gulp-mocha');
 
 
@@ -108,13 +107,6 @@ gulp.task('fonts', function() {
         .pipe(gulp.dest(dir.dist + '/fonts/'));
 });
 
-gulp.task('get-atom', function(cb) {
-    getAtom({
-        version: '0.19.2',
-        outputDir: 'bin',
-    }, cb);
-});
-
 gulp.task('watch', ['build'], function() {
 
     // Watch assets scripts
@@ -160,7 +152,7 @@ gulp.task('lint-client', function() {
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('build', ['get-atom', 'rimraf', 'bower'], function() {
+gulp.task('build', ['rimraf', 'bower'], function() {
     gulp.start('styles', 'scripts-client', 'images', 'svg', 'fonts');
 });
 

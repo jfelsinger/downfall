@@ -1,0 +1,10 @@
+'use strict';
+
+var debug = require('debug')('rest-api:mem'),
+    chalk = require('chalk');
+
+var memwatch = require('memwatch-next');
+
+memwatch.on('leak', function(info) {
+    debug(chalk.red('LEAK') + ' => ', info);
+});

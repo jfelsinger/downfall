@@ -1,6 +1,7 @@
 'use strict';
 /* jslint latedef:false */
-var debug = require('debug')('downfall:server:routes:controllers');
+var debug = require('debug')('downfall:server:routes:controllers'),
+    chalk = require('chalk');
 
 /**
  * Controllers
@@ -10,7 +11,7 @@ var debug = require('debug')('downfall:server:routes:controllers');
 var express = require('express'),
     fs = require('fs'),
     config = require('../config'),
-    parallel = require(__root + '/lib/parallel');
+    parallel = require(_root + '/lib/parallel');
 
 module.exports = function(app) {
     // Set opinionated defaults if the config has none for itself
@@ -63,7 +64,7 @@ module.exports = function(app) {
             debug('req.params', req.params);
             var page = req.params.page || defaultController || '',
                 method = req.params.method || '',
-                controllerPath = __root + '/app/controllers/' + appPath + page,
+                controllerPath = _root + '/app/controllers/' + appPath + page,
                 controller = null;
 
             if (fs.existsSync(controllerPath + '.js')) {
@@ -78,25 +79,27 @@ module.exports = function(app) {
 
             // Check for valid controller and method
             if (controller) {
+
                 debug('controller loaded');
 
                 // Run the given method, if there is one
-                if (method)
-                {
+                if (method) {
 
                     if (controller[method]) {
+                        debug('running controller method: ' + chalk.blue('%s'), method);
                         parallel(dataLoaders)(req, res, function() {
                             controller[method](req, res, next);
                         });
                     } else {
                         debug('2. Bad request: ' + page + '/' + method);
-                        return next();
+                        next();
                     }
 
                 // if not try to run the default instead
                 } else {
 
                     if (controller[defaultMethod]) {
+                        debug('running default method: ' + chalk.blue('%s'), defaultMethod);
                         parallel(dataLoaders)(req, res, function() {
                             controller[defaultMethod](req, res, next);
                         });
@@ -105,13 +108,13 @@ module.exports = function(app) {
                             'Bad request: ' + page +
                             ' doesn\' implement default method `' +
                             defaultMethod + '`');
-                        return next(); // there is no  method, :(
+                        next(); // there is no  method, :(
                     }
                 }
             } else {
                 // it was all a lie
                 debug('3. Bad request: ' + page);
-                return next();
+                next();
             }
         };
     }

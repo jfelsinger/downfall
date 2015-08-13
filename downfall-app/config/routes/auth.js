@@ -7,7 +7,7 @@
 
 var express = require('express');
 
-module.exports = function(app, passport) {
+module.exports = function(app, db, passport) {
     var router = express.Router();
 
     // Register routes for local authentication

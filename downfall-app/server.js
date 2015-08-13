@@ -1,8 +1,13 @@
+'use strict';
 
-var debug = require('debug')('downfall:server');
+var debug = require('debug')('downfall:server'),
+    chalk = require('chalk');
 
-// Make sure we're using the right director
+// Make sure we're using the right directory
 process.chdir(__dirname);
+
+require('./root');
+require('./config/memwatch');
 
 // Module Dependencies
 var express = require('express'),
@@ -11,15 +16,7 @@ var express = require('express'),
 // Load configurations
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'dev',
     config = require('./config/config'),
-    sockets = require('./config/sockets'),
-    mongoose = require('mongoose');
-
-// Connect to database
-// var db = mongoose.connect(config.db);
-
-// Load models
-var models_path = __dirname + '/models';
-require('./lib/walk')(models_path, require);
+    sockets = require('./config/sockets');
 
 var app = express();
 
@@ -28,15 +25,15 @@ require('./config/express')(app);
 
 // Show yourself
 exports = module.exports = function(cb) {
-    var server;
+    var server,
+        port = config.port;
 
     // Start the application
-    var port = config.port;
     async.series([
         function(cb) {
             server = app.listen(port, function() {
-                debug('Express application started on port ', port);
-                debug('Environment: ', env);
+                debug('Express application started on port `' + chalk.yellow('%s') + '`', port);
+                debug('Environment: ' + chalk.yellow('%s'), env);
                 cb();
             });
         },

@@ -1,4 +1,3 @@
 #!/bin/bash
 gulp build
-chmod +x bin/atom
-./bin/atom downfall-app
+./node_modules/electron-prebuilt/dist/electron downfall-app

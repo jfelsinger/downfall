@@ -1,4 +1,4 @@
 var serverStart = require('./server');
 
-serverStart(function(server) {
+serverStart(function(/* server */) {
 });

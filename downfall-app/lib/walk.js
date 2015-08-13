@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs');
 
 /**
@@ -9,7 +11,7 @@ var fs = require('fs');
  */
 module.exports = function walk(path, cb) {
     fs.readdirSync(path).forEach(function(file) {
-        var newPath = path + '/' + file
+        var newPath = path + '/' + file,
             stat = fs.statSync(newPath);
 
         // Require model files
@@ -21,7 +23,7 @@ module.exports = function walk(path, cb) {
             walk(newPath, cb);
         }
     });
-}
+};
 
 /**
  * Callback used by walk function

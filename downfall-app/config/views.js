@@ -14,7 +14,7 @@ module.exports = function(app) {
 
     'use strict';
 
-    var partialsPath = __dirname + '/../../views/partials/';
+    var partialsPath = _root + '/views/partials/';
     swag.Config.partialsPath = partialsPath;
     hbs.registerPartials(partialsPath);
 
@@ -44,12 +44,13 @@ module.exports = function(app) {
     });
 
     hbs.registerHelper('slug', function(text) {
-        if(text === undefined) return text;
+        if (text === undefined) return text;
         return slug(text, '-');
     });
 
     swag.registerHelpers(hbs);
 
+    debug('view enging setup');
     app.set('view engine', 'html');
     app.engine('html', hbs.__express);
 };

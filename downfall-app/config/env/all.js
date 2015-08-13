@@ -1,10 +1,7 @@
-var path = require('path'),
-    root = path.normalize(__dirname + '/../..');
-
-GLOBAL.__root = root;
+require('../../root');
 
 module.exports = {
-    root: root,
+    root: _root,
     port: process.env.PORT || 4004,
     secret: 'downfallsecret',
 

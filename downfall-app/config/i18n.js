@@ -11,7 +11,7 @@ var i18n = require('i18n'),
     hbs = require('hbs'),
     config = require('../config');
 
-module.exports = function() {
+module.exports = function(app) {
 
     // Configure i18n
     var i18nConfiguration = config.i18n || {
@@ -20,10 +20,8 @@ module.exports = function() {
     };
 
     i18nConfiguration.objectNotation = true;
-    i18nConfiguration.directory = __dirname + '/../i18n';
+    i18nConfiguration.directory = _root + '/config/i18n';
     i18n.configure(i18nConfiguration);
-
-
 
     //
     // Register helper functions to hbs
@@ -45,4 +43,7 @@ module.exports = function() {
             args, i18n.__n.apply(this, args));
         return result;
     });
+
+
+    app.use(i18n.init);
 };

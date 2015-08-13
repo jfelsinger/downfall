@@ -6,59 +6,51 @@
  * Setup and configure the express application
  */
 
-var session = require('express-session'),
-    bodyParser = require('body-parser'),
-    morgan = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    methodOverride = require('method-override'),
-    i18n = require('i18n'),
-    parallel = require('../lib/parallel'),
-    passport = require('passport');
+var debug = require('debug')('downfall:config:express'),
+    chalk = require('chalk');
 
-var config = require('./config');
+var bodyParser = require('body-parser'),
+    passport = require('passport');
 
 module.exports = function(app) {
 
+    app.set('json spaces', 4);
     app.set('showStackError', true);
+    app.enable('jsonp callback');
 
     // No logger on test environment
     if (process.env.NODE_ENV !== 'test') {
-        app.use(morgan('dev'));
+        app.use(require('morgan')('dev'));
+
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+        debug(chalk.yellow('WARNING') + ': allowing self-signed certs for ' +
+            'development. Make sure to user proper ssl certifications in ' +
+            'production environment');
     }
 
-    app.enable('jsonp callback');
+    app.use(require('method-override')());
+    app.use(require('compression')());
 
-    app.use(parallel([
-        cookieParser(config.secret),
-        session({
-            secret: config.secret,
-            resave: false,
-            saveUninitialized: false
-        })
-    ]));
+    // Setup Db
+    var db = require(_root + '/config/database')(app);
 
-    // i18n can be configured after cookieParser is loaded
-    require('./middlewares/i18n')(app);
+    // Setup i18n
+    require(_root + '/config/i18n')(app);
 
-    app.use(parallel([
-        methodOverride(),
-        i18n.init
-    ]));
-
-    require('./middlewares/views')(app);
+    // Setup view engine
+    require(_root + '/config/views')(app);
 
     // parse application/json requests
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
     // Setup passport
-    require('./middlewares/passport')(passport);
+    require(_root + '/config/passport')(passport);
     app.use(passport.initialize());
-    app.use(passport.session());
 
     // Continue to routing,
-    require('./middlewares/routing')(app, passport);
+    require(_root + '/config/routing')(app, db, passport);
 
     // Error handling
-    require('./middlewares/errors')(app);
+    // require(_root + '/config/errors')(app);
 };
