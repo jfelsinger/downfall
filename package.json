@@ -21,7 +21,15 @@
     "gulp-mocha": "^2.0.0",
     "gulp-rimraf": "^0.1.1",
     "gulp-svgmin": "^0.4.8",
-    "gulp-uglify": "^1.0.1"
+    "gulp-uglify": "^1.0.1",
+    "gulp-istanbul": "^0.10.0",
+    "mocha": "^2.2.5",
+    "mockgoose": "^2.0.3",
+    "node-mocks-http": "^1.4.3",
+    "should": "^7.0.3",
+    "should-sinon": "0.0.3",
+    "sinon": "^1.15.4",
+    "supertest": "^1.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
