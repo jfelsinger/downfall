@@ -8,13 +8,13 @@ var walk = require('../../lib/walk');
  *
  * Setup and configure sockets and handlers
  */
-function SocketServer(_app) {
+function SocketServer(/* _app */) {
     this.app = {
         allSockets: []
     };
-};
+}
 
-SocketServer.prototype.start = function(_app, cb) {
+SocketServer.prototype.start = function(_app, window, cb) {
     this.io = require('socket.io')(_app);
 
     this.io.on('connection', function(socket) {
@@ -22,7 +22,7 @@ SocketServer.prototype.start = function(_app, cb) {
 
         walk(__dirname + '/handlers', function(path) {
             var Handler = require(path),
-                handler = new Handler(this.app, socket);
+                handler = new Handler(this.app, window, socket);
 
             handler.register();
         }.bind(this));
@@ -32,6 +32,6 @@ SocketServer.prototype.start = function(_app, cb) {
     }.bind(this));
 
     if (typeof(cb) === 'function') cb();
-}
+};
 
 module.exports = new SocketServer();

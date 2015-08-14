@@ -1,7 +1,7 @@
 'use strict';
 /* jslint latedef:false */
 
-var extend = require(__root + '/lib/extend'),
+var extend = require(_root + '/lib/extend'),
     Handler = require('../handler');
 
 var Test = function() {
@@ -9,7 +9,7 @@ var Test = function() {
 
     // Expose handler methods
     this.handlers = {
-        ping: ping.bind(this),
+        ping: this.ping.bind(this),
     };
 };
 
@@ -17,10 +17,11 @@ extend(Test, Handler);
 
 // Events
 
+Test.prototype.ping = 
 function ping() {
     /* jshint validthis:true */
     // Reply to sender
     this.socket.emit('message', 'PONG');
-}
+};
 
 module.exports = Test;

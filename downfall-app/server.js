@@ -24,7 +24,7 @@ var app = express();
 require('./config/express')(app);
 
 // Show yourself
-exports = module.exports = function(cb) {
+exports = module.exports = function(window, cb) {
     var server,
         port = config.port;
 
@@ -38,9 +38,11 @@ exports = module.exports = function(cb) {
             });
         },
         function(cb) {
-            sockets.start(server, cb);
+            sockets.start(server, window, cb);
         },
     ], function() {
-        cb(app);
+        setTimeout(function() {
+            cb(app);
+        }, 100);
     });
 };

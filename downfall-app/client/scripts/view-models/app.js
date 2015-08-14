@@ -9,6 +9,7 @@ require('../components/pane-home');
 require('../components/pane-servers');
 
 var Vue = require('vue');
+var socket = require('../lib/socket');
 
 module.exports = function(selector) {
     selector = selector || '.js-vm-app';
@@ -59,6 +60,10 @@ module.exports = function(selector) {
         },
 
         methods: {
+            openDevTools: function() {
+                socket.emit('window:openDevTools');
+            },
+
             setPane: function(name, e) {
                 this.pane = name;
 
@@ -69,8 +74,23 @@ module.exports = function(selector) {
                 if (e) e.preventDefault();
             },
 
+            keypress: function(e) {
+                debug('keypress event: ', e);
+
+                this.toggleDevTools();
+
+                // Forward events to the active pane
+                if (this.activePane &&
+                    this.activePane.keypress)
+                    this.activePane.keypress(e);
+            },
+
             keydown: function(e) {
                 debug('keydown event: ', e);
+
+                if (e.which === 123) // <f12>
+                    return;
+                // else:
 
                 // Forward events to the active pane
                 if (this.activePane &&
@@ -80,6 +100,10 @@ module.exports = function(selector) {
 
             keyup: function(e) {
                 debug('keyup event: ', e);
+
+                if (e.which === 123) // <f12>
+                    return this.openDevTools();
+                // else:
 
                 // Forward events to the active pane
                 if (this.activePane &&

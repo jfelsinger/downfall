@@ -20,6 +20,8 @@ var mainWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
+    // On OS X it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform != 'darwin')
         app.quit();
 });
@@ -27,11 +29,21 @@ app.on('window-all-closed', function() {
 // This method will be called when atom-shell has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
-    // Start server
-    serverStart(function(server) {
 
-        // Create the browser window.
-        mainWindow = new BrowserWindow({width: 800, height: 600});
+    // 
+    // TODO:
+    // Organize the window and handlers
+    //
+
+    // Create the browser window.
+    mainWindow = new BrowserWindow({
+        width: 800, 
+        height: 600,
+        hide: true,
+    });
+
+    // Start server
+    serverStart(mainWindow, function(server) {
 
         // and load the index.html of the app.
         mainWindow.loadUrl('http://localhost:4004');
