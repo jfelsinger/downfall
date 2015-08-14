@@ -43,9 +43,10 @@ app.on('ready', function() {
     });
 
     // Start server
-    serverStart(mainWindow, function(server) {
+    serverStart(mainWindow, function(/* server */) {
 
         // and load the index.html of the app.
+        debug('start loading window');
         mainWindow.loadUrl('http://localhost:4004');
 
         // Emitted when the window is closed.
@@ -53,6 +54,7 @@ app.on('ready', function() {
             // Dereference the window object, usually you would store windows
             // in an array if your app supports multi windows, this is the time
             // when you should delete the corresponding element.
+            debug('goodbye...');
             mainWindow = null;
         });
 
