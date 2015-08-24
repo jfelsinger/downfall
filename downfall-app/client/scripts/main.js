@@ -16,11 +16,19 @@ _debug.enable('*');
 // Setup globals
 window._debug = _debug;
 window.vms = {};
+window.components = {};
+
+
 
 var socket = require('./lib/socket');
 
 socket.on('message', function(data) {
     debug(data);
 });
-
 socket.emit('ping');
+
+
+
+/* ------------- ------------- ------------- */
+
+require('./routing');

@@ -3,24 +3,13 @@
 
 var debug = require('debug')('downfall:vms:app');
 
-require('../components/pane-settings');
-require('../components/pane-game');
-require('../components/pane-home');
-require('../components/pane-servers');
-
 var Vue = require('vue');
 var socket = require('../lib/socket');
 
-module.exports = function(selector) {
-    selector = selector || '.js-vm-app';
-
-    return new Vue({
-        el: selector,
-        data: {
+module.exports = Vue.extend({
+    data: function() {
+        return {
             isLoaded: false,
-
-            pane: null,
-            activePane: null,
 
             settings: {
                 controls: {
@@ -50,93 +39,56 @@ module.exports = function(selector) {
                     item6:  {},
                 },
             },
+        };
+    },
+
+    ready: function() {
+        this.isLoaded = true;
+
+        window.addEventListener('contextmenu', this.contextMenuHandler);
+    },
+
+    methods: {
+        openDevTools: function() {
+            socket.emit('window:openDevTools');
         },
 
-        ready: function() {
-            this.isLoaded = true;
-            this.setPane('settings');
+        keypress: function(e) {
+            debug('keypress event: ', e);
 
-            window.addEventListener('contextmenu', this.contextMenuHandler);
+            this.toggleDevTools();
         },
 
-        methods: {
-            openDevTools: function() {
-                socket.emit('window:openDevTools');
-            },
+        keydown: function(e) {
+            debug('keydown event: ', e);
 
-            setPane: function(name, e) {
-                this.pane = name;
+            if (e.which === 123) // <f12>
+                return;
+            // else:
+        },
 
-                setTimeout(function() {
-                    this.activePane = this.$['child__' + name];
-                }.bind(this), 1);
+        keyup: function(e) {
+            debug('keyup event: ', e);
 
-                if (e) e.preventDefault();
-            },
+            if (e.which === 123) // <f12>
+                return this.openDevTools();
+            // else:
+        },
 
-            keypress: function(e) {
-                debug('keypress event: ', e);
+        mousedown: function(e) {
+            debug('mousedown event: ', e);
+        },
 
-                this.toggleDevTools();
+        mouseup: function(e) {
+            debug('mouseup event: ', e);
+        },
 
-                // Forward events to the active pane
-                if (this.activePane &&
-                    this.activePane.keypress)
-                    this.activePane.keypress(e);
-            },
+        mousewheel: function(e) {
+            debug('mousewheel event: ', e);
+        },
 
-            keydown: function(e) {
-                debug('keydown event: ', e);
-
-                if (e.which === 123) // <f12>
-                    return;
-                // else:
-
-                // Forward events to the active pane
-                if (this.activePane &&
-                    this.activePane.keydown)
-                    this.activePane.keydown(e);
-            },
-
-            keyup: function(e) {
-                debug('keyup event: ', e);
-
-                if (e.which === 123) // <f12>
-                    return this.openDevTools();
-                // else:
-
-                // Forward events to the active pane
-                if (this.activePane &&
-                    this.activePane.keyup)
-                    this.activePane.keyup(e);
-            },
-
-            mousedown: function(e) {
-                debug('mousedown event: ', e);
-
-                // Forward events to the active pane
-                if (this.activePane &&
-                    this.activePane.mousedown)
-                    this.activePane.mousedown(e);
-            },
-
-            mouseup: function(e) {
-                debug('mouseup event: ', e);
-
-                // Forward events to the active pane
-                if (this.activePane &&
-                    this.activePane.mouseup)
-                    this.activePane.mouseup(e);
-            },
-
-            contextMenuHandler: function(e) {
-                debug('contextMenu event: ', e);
-
-                // Forward events to the active pane
-                if (this.activePane &&
-                    this.activePane.contextMenuHandler)
-                    this.activePane.contextMenuHandler(e);
-            },
-        }
-    });
-};
+        contextMenuHandler: function(e) {
+            debug('contextMenu event: ', e);
+        },
+    }
+});

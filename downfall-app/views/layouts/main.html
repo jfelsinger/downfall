@@ -22,7 +22,7 @@
 </head>
     <!--
     -->
-<body class="js-vm-app"
+<body id="app" class="js-vm-app"
     v-on="
         keydown: keydown,
         keyup: keyup,
@@ -32,7 +32,9 @@
         mousewheel: mousewheel,
     ">
 
-    {{{ body }}}
+    <section class=" [ app  app--loading ] ">
+        <router-view></router-view>
+    </section>
 
     {{> components/panes/home }}
     {{> components/panes/settings }}

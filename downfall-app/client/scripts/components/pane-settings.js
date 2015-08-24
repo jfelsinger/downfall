@@ -8,7 +8,9 @@ var Keyboard = require('keyboardjs');
 
 window.Keyboard = Keyboard;
 
-module.exports = Vue.component('pane-settings', {
+window.components.paneSettings =
+module.exports = 
+Vue.extend({
     template: '#vue-tmpl__pane-settings',
 
     data: function() {
@@ -26,6 +28,7 @@ module.exports = Vue.component('pane-settings', {
 
     methods: {
         captureEvent: function(e) {
+            debug(e);
         },
 
         startCapturing: function(settingKey, e) {

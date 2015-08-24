@@ -5,7 +5,9 @@ var debug = require('debug')('downfall:cmpt:pane-home');
 
 var Vue = require('vue');
 
-module.exports = Vue.component('pane-home', {
+window.components.paneHome =
+module.exports = 
+Vue.extend({
     template: '#vue-tmpl__pane-home',
 
     data: function() {
